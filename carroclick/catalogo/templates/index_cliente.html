@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}CATALOGO{% endblock title %}
+{% block content %}
+<h3 class="p-2 text-center" style="font-family: 'Blackletter'; color: rgb(255, 255, 255);"> CLIENTES</h3>
+
+<div class="card-group">
+    {% for cliente in clientes %}
+        <div class="card m-2" style="border: 2px solid #000;">
+            <div class="card-body">
+                <h4 class="card-title" style="font-family: 'Franklin Gothic Medium';">{{ cliente }}</h4>
+                <p class="card-text">
+                    Nombre: {{ cliente.nombre_cliente }} <br>
+                
+                </p>
+                <a href="cliente/{{ cliente.id }}" class="btn btn-success">
+                    <i class="fa-regular fa-eye"></i>
+                </a>
+
+                {% if user.is_authenticated %}
+                <a href="edit_cliente/{{ cliente.id }}" class="btn btn-success">
+                    <i class="fa fa-pencil"></i>
+                </a>
+                <a href="delete_cliente/{{ cliente.id }}" class="btn btn-danger">
+                    <i class="fa fa-trash"></i>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock content %}
