@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}{{ producto }}{% endblock title %}
+{% block content %}
+    <p class="py-4">Has elegido la Compra: <strong>{{ compra | capfirst }}</strong></p>
+   
+    <h3>Datos de la Compra:</h3>
+    <ul>
+        
+        <li>Nombre: {{ compra.cliente }}</li>
+        <li>Edad : {{ compra.producto }} .</li>
+        
+    </ul>
+{% endblock content %}

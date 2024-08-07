@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}{{ producto }}{% endblock title %}
+{% block content %}
+    <p class="py-4">Producto selecionado: <strong>{{ producto | capfirst }}</strong></p>
+    <img src="{{ producto.picture.url }}" alt="Imagen de {{producto}}" class="card-img-top" style="height: 400px; width: 100%; object-fit: cover;">
+    <h3>Características:</h3>
+    <ul>
+        
+        <li>Nombre: {{ producto.nombre_producto }} </li>
+        <li>Precio: {{ producto.precio }} </li>
+                
+    </ul>
+{% endblock content %}

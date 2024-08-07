@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}{{ cliente }}{% endblock title %}
+{% block content %}
+    <p class="py-4">Has elegido el Cliente: <strong>{{ cliente | capfirst }}</strong></p>
+   
+    <h3>Datos del Cliente:</h3>
+    <ul>
+        
+        <li>Nombre: {{ cliente.nombre_cliente }}</li>
+        <li>Edad : {{ cliente.edad }} .</li>
+        <li>Telefono: {{ cliente.telefono }} .</li>
+        
+    </ul>
+{% endblock content %}
