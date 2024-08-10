@@ -11,12 +11,12 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth.decorators import login_required
 
 def index(request):
-    #pokemons = Pokemon.objects.all() ## SELECT * FROM pokedex_pokemon
-    clientes = Cliente.objects.all() ## SELECT * FROM pokedex_pokemon ORD
-    productos = Producto.objects.all()
+   
+    cliente = Cliente.objects.all() 
+    producto = Producto.objects.all()
     template = loader.get_template('index.html')
     
-    return HttpResponse(template.render({'clientes': clientes, 'productos':productos}, request))
+    return HttpResponse(template.render({'index': index}, request))
  
 def cliente(request, cliente_id):
     
@@ -28,22 +28,13 @@ def cliente(request, cliente_id):
     return HttpResponse(template.render(context, request))
 
 def producto(request, producto_id):
-    #SELECT * FROM pokedex_trainer WHERE id='trainer_id'
-    proucto = get_object_or_404(Producto,id=producto_id)
+    producto = get_object_or_404(Producto,id=producto_id)
     template = loader.get_template('display_producto.html')
     context = {
         'producto': producto
     }
     return HttpResponse(template.render(context, request))
 
-def categoria(request, categoria_id):
-   
-    categoria = get_object_or_404(Categoria,id=categoria_id)
-    template = loader.get_template('display_categoria.html')
-    context = {
-        'categoria': categoria
-    }
-    return HttpResponse(template.render(context, request))
 
 def compra(request, compra_id):
    
@@ -55,19 +46,6 @@ def compra(request, compra_id):
     return HttpResponse(template.render(context, request))
 
 @login_required    
-def add_categoria(request):
-    if request.method=='POST':
-        form= CategoriaForm(request.POST ,request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('catalogo:index')
-        
-    else:
-    
-        form = CategoriaForm()
-        
-    return render(request,"categoria_form.html",{'form': form }) 
-@login_required    
 def add_compra(request):
     if request.method=='POST':
         form= CompraForm(request.POST ,request.FILES)
@@ -78,22 +56,6 @@ def add_compra(request):
     else:
     
         form = CompraForm()
-        
-    return render(request,"compra_form.html",{'form': form }) 
-
-@login_required 
-def edit_compra(request,id):
-    
-    compra= get_object_or_404(Compra, pk =id)
-    if request.method=='POST':
-        form= CompraForm(request.POST ,request.FILES,instance=compra)
-        if form.is_valid():
-            form.save()
-            return redirect('catalogo:index')
-        
-    else:
-    
-        form = CompraForm(instance=compra)
         
     return render(request,"compra_form.html",{'form': form }) 
 

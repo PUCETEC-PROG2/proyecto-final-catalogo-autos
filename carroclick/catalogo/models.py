@@ -12,11 +12,25 @@ class Cliente(models.Model):
 
     def __str__(self):
         return self.nombre
-
+    
 class Categoria(models.Model):
- 
-    nombre = models.CharField(max_length=100 )
-    descripcion = models.TextField(blank=True, null=True)
+    nombre = models.CharField(max_length=30, null=False)
+    
+    # categorías de tipo de auto
+    AUTOS_TYPES = (
+        ("S", "SEDAN"),
+        ("H", "HATCHBACK"),
+        ("C", "COUPE"),
+        ("SUV", "SUV"),
+        ("T", "TRUCK"),
+        ("V", "VAN"),
+        ("E", "ELECTRIC"),  
+        ("C", "CONVERTIBLE"),  
+        ("P", "PICKUP"),  
+        # Puedes añadir más tipos según lo necesites.
+    )
+
+    type = models.CharField(max_length=30, choices=AUTOS_TYPES, null=False)
 
     def __str__(self):
         return self.nombre
@@ -27,6 +41,7 @@ class Producto(models.Model):
     anio = models.IntegerField()
     precio = models.DecimalField(max_digits=10, decimal_places=2)
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
+    picture = models.ImageField(upload_to='productos_images') 
 
     def clean(self):
         super().clean()  # Llama al método clean() de la superclase
