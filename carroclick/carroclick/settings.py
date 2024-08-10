@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'carroclick.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'catalogo_auto',
+        'NAME': 'catalogo',
         'HOST': 'localhost',
         'PORT': '5432',
         'USER': 'cero96',

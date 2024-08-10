@@ -1,9 +1,9 @@
 
 from django.http import HttpResponse
 from django.template import loader
-from catalogo.forms import ProductoForm,CategoriaForm
+from catalogo.forms import ProductoForm
 from catalogo.forms import ClienteForm,CompraForm
-from .models import Cliente,Producto,Categoria,Compra
+from .models import Cliente,Producto,Compra
 from django.shortcuts import get_object_or_404, redirect, render
 
 #importacion de librearia de autenticacion 

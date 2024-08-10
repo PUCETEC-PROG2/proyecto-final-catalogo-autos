@@ -24,8 +24,6 @@ urlpatterns = [
     path("compra/add_compra/", views.add_compra, name="add_compra"),
     
     
-
-    path("categoria/", views.categoria, name="categoria"),
     
 ]
 
