@@ -30,10 +30,6 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'catalogo:logout' %}">Logout</a>
                         </li>
-                    {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'catalogo:login' %}">Login</a>
-                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'catalogo:add_producto' %}">Agregar Auto</a>
                         </li>
@@ -43,6 +39,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'catalogo:add_cliente' %}">Agregar Cliente</a>
                         </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'catalogo:login' %}">Login</a>
+                        </li>
+                      
                     {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'catalogo:producto' %}">Productos</a>

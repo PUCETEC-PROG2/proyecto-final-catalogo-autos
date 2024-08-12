@@ -1,15 +1,14 @@
 {% extends "base.html" %}
-{% block title %}Formulario de Producto{% endblock title %}
+{% block title %}CATALOGO{% endblock title %}
+
 {% block content %}
-    <div class="container">
-        <form class="p-3 bg-secondary text-white" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <strong>
-                {{ form.as_p }}
-            </strong>
-            <button type="submit" class="btn btn-primary mb-4">Guardar</button>
-        </form>
-    </div>
+    
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+
 {% endblock content %}
 
 

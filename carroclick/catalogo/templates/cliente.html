@@ -10,8 +10,7 @@
                         <tr class="align-middle">
                         <th scope="col">ID</th>
                         <th scope="col">Nombre</th>
-                        <th scope="col">Apellidos</th>
-                        <th scope="col">Edad</th>
+                        <th scope="col">Apellidos</th>                        
                         <th scope="col">Cedula</th>
                         <th scope="col">Telefono</th>
                         <th scope="col">Correo</th>
@@ -20,18 +19,17 @@
                         </tr>
                     </thead>
                     <tbody class="text-center align-middle">
-                        {% for cliente in clientes %}
+                        {% for clientes in cliente %}
                         <tr class="align-middle">
-                        <th scope="row">{{ cliente.id }}</th>
-                        <td>{{ cliente.nombre }}</td>
-                        <td>{{ cliente.apellidos }}</td>
-                        <td>{{ cliente.edad }}</td>
-                        <td>{{ cliente.cedula }}</td>
-                        <td>{{ cliente.telefono }}</td>
-                        <td>{{ cliente.correo }}</td>
+                        <th scope="row">{{ clientes.id }}</th>
+                        <td>{{ clientes.nombre }}</td>
+                        <td>{{ clientes.apellido }}</td>
+                        <td>{{ clientes.cedula }}</td>
+                        <td>{{ clientes.telefono }}</td>
+                        <td>{{ clientes.correo }}</td>
                         {% if user.is_authenticated %}
                         <td>
-                            <a href="edit_cliente/{{ cliente.id }}" class="btn btn-sm btn-warning" id="btn_edit_cliente">
+                            <a href="edit_cliente/{{ cliente.id }}" class="btn btn-success id="btn_edit_cliente">
                             <i class="fa-solid fa-pencil"></i>
                             </a>
                         </td>

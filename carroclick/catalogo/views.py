@@ -27,10 +27,10 @@ def producto(request):
 #@login_required    
 def add_producto(request):
     if request.method=='POST':
-        form= ProductoForm(request.POST ,request.FILES)
+        form= ProductoForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('catalogo:index')
+            return redirect('catalogo:producto')
         
     else:   
         form = ProductoForm()
@@ -65,13 +65,13 @@ def compra(request):
 #@login_required    
 def add_compra(request):
     if request.method=='POST':
-        form= CompraForm(request.POST ,request.FILES)
+        form= CompraForm(request.POST )
         if form.is_valid():
             form.save()
             return redirect('catalogo:compra')
         
     else:   
-        form = ProductoForm()
+        form = CompraForm()
         
     return render(request,"compra_form.html",{'form': form }) 
 

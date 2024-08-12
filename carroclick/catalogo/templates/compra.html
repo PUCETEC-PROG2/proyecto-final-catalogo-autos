@@ -18,15 +18,15 @@
                         </tr>
                     </thead>
                     <tbody class="text-center align-middle">
-                        {% for compra in compras %}
+                        {% for compras in compra %}
                         <tr class="align-middle">
-                        <th scope="row">{{ compra.id }}</th>
-                        <td>{{ compra.ciudad }}</td>
-                        <td>{{ compra.fecha_compra }}</td>
-                        <td>{{ compra.precio_total }}</td>
-                        <td>{{ compra.cantidad }}</td>
-                        <td>{{ compra.cliente }}</td>
-                        <td>{{ compra.productos }}</td>
+                        <th scope="row">{{ compras.id }}</th>
+                        <td>{{ compras.ciudad }}</td>
+                        <td>{{ compras.fecha_compra }}</td>
+                        <td>{{ compras.precio_total }}</td>
+                        <td>{{ compras.cantidad }}</td>
+                        <td>{{ compras.cliente }}</td>
+                        <td>{{ compras.producto }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
