@@ -18,7 +18,7 @@
                         <th scope="col">Trasmision</th>                        
                         <th scope="col">Año</th>
                         <th scope="col">Color</th>
-                        <th scope="col">Pasajeros</th>
+                        <th scope="col">Placa</th>
                         <th scope="col">Categoría</th>
                         <th scope="col">Editar</th>
                         <th scope="col">Eliminar</th>
@@ -28,15 +28,15 @@
                         {% for productos in producto %}
                         <tr class="align-middle">
                         <th scope="row">{{ productos.id }}</th>
-                        <td>{{ productos.marca_producto }}</td>
+                        <td>{{ productos.modelo_producto }}</td>
                         <td>{{ productos.precio }}</td>
                         <td>{{ productos.cilindraje }}</td>
                         <td>{{ productos.equipo }}</td>
                         <td>{{ productos.motor }}</td>
-                        <td>{{ productos.descripcion }}</td>
+                        <td>{{ productos.trasmision }}</td>
                         <td>{{ productos.año }}</td>
                         <td>{{ productos.color }}</td>
-                        <td>{{ productos.pasajeros }}</td>
+                        <td>{{ productos.placa }}</td>
                         <td>{{ productos.categoria}}</td>
                         {% if user.is_authenticated %}
                         <td>

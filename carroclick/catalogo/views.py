@@ -22,6 +22,42 @@ def producto(request):
     }
     return render(request, 'producto.html', context)
 
+def compra(request):
+    compra = Compra.objects.order_by('fecha_compra')
+ 
+    context = {
+        'compra' : compra
+    }
+    return render(request, 'compra.html', context)
+
+def cliente (request):
+    cliente = Cliente.objects.all()
+    context = {
+        'cliente' : cliente 
+    }
+    return render(request,'cliente.html', context )
+
+def categoria (request):
+    categoria = Categoria.objects.all()
+    context = {
+        'categoria' : categoria 
+    }
+    return render(request,'categoria.html', context )
+
+
+
+
+def add_categoria(request):
+    if request.method=='POST':
+        form= CategoriaForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('catalogo:categoria')
+        
+    else:   
+        form = CategoriaForm()
+        
+    return render(request,"categoria_form.html",{'form': form }) 
 
 
 #@login_required    
@@ -54,13 +90,7 @@ def delete_producto(required, id):
     producto.delete()
     return redirect('catalogo:producto')
 
-def compra(request):
-    compra = Compra.objects.order_by('fecha_compra')
- 
-    context = {
-        'compra' : compra
-    }
-    return render(request, 'compra.html', context)
+
 
 #@login_required    
 def add_compra(request):
@@ -76,12 +106,7 @@ def add_compra(request):
     return render(request,"compra_form.html",{'form': form }) 
 
 
-def cliente (request):
-    cliente = Cliente.objects.all()
-    context = {
-        'cliente' : cliente 
-    }
-    return render(request,'cliente.html', context )
+
 
 def add_cliente(request):
     if request.method=='POST':

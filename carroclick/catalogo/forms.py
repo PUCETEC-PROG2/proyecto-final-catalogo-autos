@@ -6,16 +6,16 @@ class ProductoForm(forms.ModelForm):
         model = Producto
         fields = '__all__'
         widgets = {
-           'nombre_producto': forms.TextInput(attrs={'class': 'form-control'}),
+           'modelo_producto': forms.TextInput(attrs={'class': 'form-control'}),
            'marca_producto': forms.TextInput(attrs={'class': 'form-control'}),
            'precio': forms.NumberInput(attrs={'class': 'form-control'}),
            'cilindraje': forms.NumberInput(attrs={'class': 'form-control'}),
            'equipo': forms.TextInput(attrs={'class': 'form-control'}),
-           'motor': forms.Textarea(attrs={'class': 'form-control'}),
-           'trasmision': forms.Textarea(attrs={'class': 'form-control'}),
-           'año': forms.DateInput(attrs={'class': 'form-control'}),
-           'color': forms.Textarea(attrs={'class': 'form-control'}),
-           'pasajeros': forms.NumberInput(attrs={'class': 'form-control'}),
+           'motor': forms.TextInput(attrs={'class': 'form-control'}),
+           'trasmision': forms.TextInput(attrs={'class': 'form-control'}),
+           'año': forms.NumberInput(attrs={'class': 'form-control'}),
+           'color': forms.TextInput(attrs={'class': 'form-control'}),
+           'placa': forms.TextInput(attrs={'class': 'form-control'}),
            'categoria': forms.Select(attrs={'class': 'form-control'}),
          }
 
@@ -43,3 +43,12 @@ class ClienteForm(forms.ModelForm):
            'telefono': forms.NumberInput(attrs={'class': 'form-control'}),
            'correo': forms.EmailInput(attrs={'class': 'form-control'}),
         }
+
+class CategoriaForm(forms.ModelForm):
+    class Meta:
+        model = Categoria
+        fields = '__all__'
+        widgets = {
+                    
+           'categoria': forms.Select(attrs={'class': 'form-control'}),
+         }
