@@ -1,0 +1,66 @@
+{% extends "base.html" %} 
+{% block title %}Productos{% endblock title %} 
+{% block content %}
+
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body ">
+                <div class="table-responsive">
+                    <table class="table table-bordered align-middle">
+                    <thead class="table-dark text-center">
+                        <tr class="align-middle">
+                        <th scope="col">ID</th>                        
+                        <th scope="col">Marca</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Cilindraje</th>                        
+                        <th scope="col">Equipo</th>
+                        <th scope="col">Motor</th>
+                        <th scope="col">Trasmision</th>                        
+                        <th scope="col">Año</th>
+                        <th scope="col">Color</th>
+                        <th scope="col">Pasajeros</th>
+                        <th scope="col">Categoría</th>
+                        <th scope="col">Editar</th>
+                        <th scope="col">Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-center align-middle">
+                        {% for producto in productos %}
+                        <tr class="align-middle">
+                        <th scope="row">{{ producto.id }}</th>
+                        <td>{{ producto.marca_producto }}</td>
+                        <td>{{ producto.precio }}</td>
+                        <td>{{ producto.cilindraje }}</td>
+                        <td>{{ producto.equipo }}</td>
+                        <td>{{ producto.motor }}</td>
+                        <td>{{ producto.descripcion }}</td>
+                        <td>{{ producto.año }}</td>
+                        <td>{{ producto.color }}</td>
+                        <td>{{ producto.pasajeros }}</td>
+                        <td>{{ producto.categoria }}</td>
+                        {% if user.is_authenticated %}
+                        <td>
+                            <a href="edit_producto/{{ producto.id }}" class="btn btn-sm btn-warning" id="btn_edit_producto">
+                            <i class="fa-solid fa-pencil"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="delete_producto/{{ producto.id }}" class="btn btn-sm btn-danger" onclick="return confirmarEliminacion()">
+                            <i class="fa-solid fa-trash"></i>
+                            </a>
+                        </td>
+                        {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function confirmarEliminacion() {
+            return confirm('¿Estás seguro de que deseas eliminar este producto?');
+        }
+    </script>
+{% endblock content %}

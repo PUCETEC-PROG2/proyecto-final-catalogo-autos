@@ -1,60 +1,46 @@
-import datetime
-from unittest import loader
+
 from django.db import models
-from django.forms import ValidationError
-from django.http import HttpResponse
+
+# Create your models here.
 
 class Cliente(models.Model):
-    nombre = models.CharField(max_length=100)
-    direccion = models.CharField(max_length=255)
-    telefono = models.CharField(max_length=10)
-    email = models.EmailField(unique=True)
+    nombre = models.CharField(max_length=60, null=False)
+    apellido = models.CharField(max_length=150, null=False)
+    cedula = models.BigIntegerField(null=False)
+    telefono = models.BigIntegerField(null=False)
+    correo = models.EmailField(null=False)
 
-    def __str__(self):
-        return self.nombre
-    
+    def __str__(self) -> str:
+        return f'{self.apellido} {self.nombre}'
+
 class Categoria(models.Model):
-    nombre = models.CharField(max_length=30, null=False)
-    
-    # categorías de tipo de auto
-    AUTOS_TYPES = (
-        ("S", "SEDAN"),
-        ("H", "HATCHBACK"),
-        ("C", "COUPE"),
-        ("SUV", "SUV"),
-        ("T", "TRUCK"),
-        ("V", "VAN"),
-        ("E", "ELECTRIC"),  
-        ("C", "CONVERTIBLE"),  
-        ("P", "PICKUP"),  
-        # Puedes añadir más tipos según lo necesites.
-    )
+    nombre_categoria = models.CharField(max_length=100, null=False)
 
-    type = models.CharField(max_length=30, choices=AUTOS_TYPES, null=False)
-
-    def __str__(self):
-        return self.nombre
+    def __str__(self) -> str:
+        return self.nombre_categoria
 
 class Producto(models.Model):
-    marca = models.CharField(max_length=50)
-    modelo = models.CharField(max_length=50)
-    anio = models.IntegerField()
-    precio = models.DecimalField(max_digits=10, decimal_places=2)
-    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
-    picture = models.ImageField(upload_to='productos_images') 
+    marca_producto = models.CharField(max_length=200, null=False)
+    precio = models.DecimalField(null=False, max_digits=7, decimal_places=2)
+    cilindraje = models.DecimalField(null=False, max_digits=7, decimal_places=2)
+    equipo = models.CharField(max_length=100, null=False)
+    motor = models.CharField(max_length=100, null=False)
+    trasmision = models.TextField(max_length=200, null=False)
+    año = models.DateField(null=False)
+    color = models.TextField(max_length=300, null=False)
+    pasajeros = models.IntegerField(null=False)
+    categoria = models.ForeignKey(Categoria, on_delete=models.RESTRICT)
 
-    def clean(self):
-        super().clean()  # Llama al método clean() de la superclase
-
-        # Validar el año
-        if self.anio < 1886 or self.anio > datetime.datetime.now().year:
-            raise ValidationError('Año no válido.')
-
+    def __str__(self) -> str:
+        return self.nombre_producto
 
 class Compra(models.Model):
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
-    fecha_compra = models.DateTimeField(auto_now_add=True)
+    ciudad = models.CharField(max_length=50, null=False)
+    fecha_compra = models.DateField(null=False)
+    precio_total = models.DecimalField(null=False, max_digits=10, decimal_places=2)
+    cantidad = models.IntegerField(default=1, null=False)
+    cliente = models.ForeignKey(Cliente, on_delete=models.RESTRICT)
+    productos = models.ManyToManyField(Producto)
 
-    def __str__(self):
-        return f"Compra de {self.cliente} - {self.producto} el {self.fecha_compra}"
+    def __str__(self) -> str:
+        return f'Compra de {self.cliente} - {self.fecha_compra}'

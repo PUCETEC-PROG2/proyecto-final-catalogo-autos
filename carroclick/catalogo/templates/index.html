@@ -6,10 +6,24 @@
 
 
 <div class="button-container">
-    <a href="producto/{{ producto.id }}" class="btn btn-success">Producto</a>
-    <a href="cliente/{{ cliente.id }}" class="btn btn-success">Cliente</a>
-    <a href="compra/{{ compra.id }}" class="btn btn-success">Compra</a>
+    <div class="jumbotron">
+        <h1 class="display-4">Bienvenido a Carro Click</h1>
+            
+        <p class="lead">Encuentra autos de toda clase.</p>
+
+        <hr class="my-4">
+
+        <p>Mira nuestro contenido </p>
+
+        {% comment %} <a class="btn btn-primary btn-lg" href="{% url 'lista_productos' %}" role="button">Ver Productos</a> {% endcomment %}
+    
+        <a href="producto/{{ producto.id }}" class="btn btn-success">Producto</a>
+        <a href="cliente/{{ cliente.id }}" class="btn btn-success">Cliente</a>
+        <a href="compra/{{ compra.id }}" class="btn btn-success">Compra</a>
+
+    </div>
 </div>
 
 
 {% endblock content %}
+

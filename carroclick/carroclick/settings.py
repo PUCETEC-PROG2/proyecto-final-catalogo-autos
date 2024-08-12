@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'carroclick.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'catalogo',
+        'NAME': 'parcial',
         'HOST': 'localhost',
         'PORT': '5432',
         'USER': 'cero96',
@@ -121,6 +121,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+#Media Files
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -128,7 +131,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #CONFIGURA LOGIN 
-
-LOGIN_URL='/'
-REDIRECT_URL='/'
-LOGIN_URL='catalogo:login'
+# Configuración de login
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = 'catalogo:login'

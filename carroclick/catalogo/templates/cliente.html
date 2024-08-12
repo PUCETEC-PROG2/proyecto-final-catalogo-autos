@@ -1,31 +1,57 @@
-{% extends "base.html" %}
-{% block title %}CATALOGO{% endblock title %}
+{% extends "base.html" %} 
+{% block title %}Clientes{% endblock title %} 
 {% block content %}
-<h3 class="p-2 text-center" style="font-family: 'Blackletter'; color: rgb(255, 255, 255);"> CLIENTES</h3>
-
-<div class="card-group">
-    {% for cliente in clientes %}
-        <div class="card m-2" style="border: 2px solid #000;">
-            <div class="card-body">
-                <h4 class="card-title" style="font-family: 'Franklin Gothic Medium';">{{ cliente }}</h4>
-                <p class="card-text">
-                    Nombre: {{ cliente.nombre_cliente }} <br>
-                
-                </p>
-                <a href="cliente/{{ cliente.id }}" class="btn btn-success">
-                    <i class="fa-regular fa-eye"></i>
-                </a>
-
-                {% if user.is_authenticated %}
-                <a href="edit_cliente/{{ cliente.id }}" class="btn btn-success">
-                    <i class="fa fa-pencil"></i>
-                </a>
-                <a href="delete_cliente/{{ cliente.id }}" class="btn btn-danger">
-                    <i class="fa fa-trash"></i>
-                </a>
-                {% endif %}
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body ">
+                <div class="table-responsive">
+                    <table class="table table-bordered align-middle">
+                    <thead class="table-dark text-center">
+                        <tr class="align-middle">
+                        <th scope="col">ID</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellidos</th>
+                        <th scope="col">Edad</th>
+                        <th scope="col">Cedula</th>
+                        <th scope="col">Telefono</th>
+                        <th scope="col">Correo</th>
+                        <th scope="col">Editar</th>
+                        <th scope="col">Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-center align-middle">
+                        {% for cliente in clientes %}
+                        <tr class="align-middle">
+                        <th scope="row">{{ cliente.id }}</th>
+                        <td>{{ cliente.nombre }}</td>
+                        <td>{{ cliente.apellidos }}</td>
+                        <td>{{ cliente.edad }}</td>
+                        <td>{{ cliente.cedula }}</td>
+                        <td>{{ cliente.telefono }}</td>
+                        <td>{{ cliente.correo }}</td>
+                        {% if user.is_authenticated %}
+                        <td>
+                            <a href="edit_cliente/{{ cliente.id }}" class="btn btn-sm btn-warning" id="btn_edit_cliente">
+                            <i class="fa-solid fa-pencil"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="delete_cliente/{{ cliente.id }}" class="btn btn-sm btn-danger" onclick="return confirmarEliminacion()">
+                            <i class="fa-solid fa-trash"></i>
+                            </a>
+                        </td>
+                        {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-    {% endfor %}
-</div>
+    </div>
+    <script>
+        function confirmarEliminacion() {
+            return confirm('¿Estás seguro de que deseas eliminar este cliente?');
+        }
+    </script>
 {% endblock content %}

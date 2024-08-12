@@ -1,0 +1,43 @@
+{% extends "base.html" %} 
+{% block title %}Productos{% endblock title %} 
+{% block content %}
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body ">
+                <div class="table-responsive">
+                    <table class="table table-bordered align-middle">
+                    <thead class="table-dark text-center">
+                        <tr class="align-middle">
+                            <th scope="col">ID</th>
+                            <th scope="col">Ciudad</th>
+                            <th scope="col">Fecha de Compra</th>
+                            <th scope="col">Precio Total</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Cliente</th>
+                            <th scope="col">Productos</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-center align-middle">
+                        {% for compra in compras %}
+                        <tr class="align-middle">
+                        <th scope="row">{{ compra.id }}</th>
+                        <td>{{ compra.ciudad }}</td>
+                        <td>{{ compra.fecha_compra }}</td>
+                        <td>{{ compra.precio_total }}</td>
+                        <td>{{ compra.cantidad }}</td>
+                        <td>{{ compra.cliente }}</td>
+                        <td>{{ compra.productos }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function confirmarEliminacion() {
+            return confirm('¿Estás seguro de que deseas eliminar este producto?');
+        }
+    </script>
+{% endblock content %}
