@@ -2,29 +2,38 @@
 {% block title %}CATALOGO{% endblock title %}
 {% block content %}
 
-<h3 class="p-2 text-center" style="font-family: 'Blackletter'; color: rgb(255, 255, 255);">Carro Click</h3>
+<style>
+  body {
+    background-color: #000; /* Fondo negro */
+  }
+  .button-container {
+    text-align: center; /* Centrar botones */
+  }
+  .btn {
+    font-size: 24px; /* Tamaño de los botones */
+    margin: 10px; /* Espacio entre botones */
+  }
+  .jumbotron {
+    background-color: #333; /* Fondo oscuro */
+    color: #fff; /* Texto blanco */
+  }
+</style>
 
+<h3 class="p-2 text-center" style="font-family: 'Blackletter'; color: #fff;">CARRO CLICK</h3>
 
 <div class="button-container">
-    <div class="jumbotron">
-        <h1 class="display-4">Bienvenido a Carro Click</h1>
-            
-        <p class="lead">Encuentra autos de toda clase.</p>
+  <div class="jumbotron">
+    <h1 class="display-4">BIENVENIDO A CARRO CLICK</h1>
+    <p class="lead">TU PRÓXIMO VEHICULO ESTÁ AQUÍ, DESCÚBRELO</p>
+    <hr class="my-4">
+    <p>DESCUBRE LO QUE TENEMOS PARA TI</p>
 
-        <hr class="my-4">
+    <a href="add_producto/{{ producto.id }}" class="btn btn-danger">PRODUCTO</a>
+    <a href="add_cliente/{{ cliente.id }}" class="btn btn-danger">CLIENTE</a>
+    <a href="add_compra/{{ compra.id }}" class="btn btn-danger">COMPRA</a>
+    <a href="add_categoria/{{ categoria.id }}" class="btn btn-danger">CATEGORIA</a>
 
-        <p>Mira nuestro contenido </p>
-
-        {% comment %} <a class="btn btn-primary btn-lg" href="{% url 'lista_productos' %}" role="button">Ver Productos</a> {% endcomment %}
-    
-        <a href="add_producto/{{ producto.id }}" class="btn btn-success">Producto</a>
-        <a href="add_cliente/{{ cliente.id }}" class="btn btn-success">Cliente</a>
-        <a href="add_compra/{{ compra.id }}" class="btn btn-success">Compra</a>
-        <a href="add_categoria/{{ categoria.id }}" class="btn btn-success">Categoria</a>
-
-    </div>
+  </div>
 </div>
 
-
 {% endblock content %}
-
