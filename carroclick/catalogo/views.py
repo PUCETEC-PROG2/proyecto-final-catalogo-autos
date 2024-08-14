@@ -92,18 +92,33 @@ def delete_producto(required, id):
 
 
 
-#@login_required    
+#@login_required   
 def add_compra(request):
-    if request.method=='POST':
-        form= CompraForm(request.POST )
+    if request.method == 'POST':
+        form = CompraForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('catalogo:compra')
-        
-    else:   
-        form = CompraForm()
-        
-    return render(request,"compra_form.html",{'form': form }) 
+            compra = form.save()  # Guarda la compra
+
+            selected_productos = request.POST.getlist('productos')
+            for producto_id in selected_productos:
+                try:
+                    producto = Producto.objects.get(id=producto_id)  # Obtiene el producto
+                    LineaCompra.objects.create(compra=compra, producto=producto)  # Crea la Línea de Compra
+                except Producto.DoesNotExist:
+                    # Manejo de error en caso de que el producto no exista
+                    # Puedes registrar un mensaje de error o simplemente continuar
+                    pass
+
+            return render(request, 'index.html') # Redirige a una vista de éxito
+
+    else:
+        form = CompraForm()  # Si no es POST, crea un nuevo formulario
+
+    return render(request, 'compra_form.html', {'form': form})  # Renderiza el formulario
+
+
+
+
 
 
 
