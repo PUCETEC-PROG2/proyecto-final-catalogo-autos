@@ -22,10 +22,11 @@
                     <thead class="table-dark text-center">
                         <tr class="align-middle">
                             <th scope="col">ID</th>
+                            <th scope="col">Cliente</th>
                             <th scope="col">Ciudad</th>
                             <th scope="col">Fecha de Compra</th>
                             <th scope="col">Precio Total</th>                            
-                            <th scope="col">Cliente</th>
+                            
                             <th scope="col">Ver</th>
                         </tr>
                     </thead>
@@ -33,10 +34,11 @@
                         {% for compra in compras %}
                         <tr class="align-middle">
                             <th scope="row">{{ compra.id }}</th>
+                            <td>{{ compra.cliente }}</td>
                             <td>{{ compra.ciudad }}</td>
                             <td>{{ compra.fecha_compra }}</td>
                             <td>{{ compra.total }}</td>
-                            <td>{{ compra.cliente }}</td>
+                            
                             <td>
                                 <a href="compra/{{ compra.id }}" class="btn btn-info">ver</a>
                             </td>

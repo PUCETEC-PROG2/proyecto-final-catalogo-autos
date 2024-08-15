@@ -39,27 +39,27 @@
                         </tr>
                     </thead>
                     <tbody class="text-center align-middle">
-                        {% for productos in producto %}
+                        {% for producto in productos %}
                         <tr class="align-middle">
-                        <th scope="row">{{ productos.id }}</th>
-                        <td>{{ productos.modelo_producto }}</td>
-                        <td>{{ productos.precio }}</td>
-                        <td>{{ productos.cilindraje }}</td>
-                        <td>{{ productos.equipo }}</td>
-                        <td>{{ productos.motor }}</td>
-                        <td>{{ productos.transmision }}</td>
-                        <td>{{ productos.año }}</td>
-                        <td>{{ productos.color }}</td>
-                        <td>{{ productos.placa }}</td>
-                        <td>{{ productos.categoria}}</td>
+                        <th scope="row">{{ producto.id }}</th>
+                        <td>{{ producto.modelo_producto }}</td>
+                        <td>{{ producto.precio }}</td>
+                        <td>{{ producto.cilindraje }}</td>
+                        <td>{{ producto.equipo }}</td>
+                        <td>{{ producto.motor }}</td>
+                        <td>{{ producto.transmision }}</td>
+                        <td>{{ producto.año }}</td>
+                        <td>{{ producto.color }}</td>
+                        <td>{{ producto.placa }}</td>
+                        <td>{{ producto.categoria}}</td>
                         {% if user.is_authenticated %}
                         <td>
-                            <a href="edit_producto/{{ productos.id }}" class="btn btn-sm btn-warning" id="btn_edit_producto">
+                            <a href="edit_producto/{{ producto.id }}" class="btn btn-sm btn-warning" id="btn_edit_producto">
                             <i class="fa-solid fa-pencil"></i>
                             </a>
                         </td>
                         <td>
-                            <a href="delete_producto/{{ productos.id }}" class="btn btn-sm btn-danger" onclick="return confirmarEliminacion()">
+                            <a href="delete_producto/{{ producto.id }}" class="btn btn-sm btn-danger" onclick="return confirmarEliminacion()">
                             <i class="fa-solid fa-trash"></i>
                             </a>
                         </td>

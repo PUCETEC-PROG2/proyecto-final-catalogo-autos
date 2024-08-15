@@ -16,11 +16,11 @@
                         </tr>
                     </thead>
                     <tbody class="text-center align-middle">
-                       {% for categorias in categoria %}
+                       {% for categoria in categorias %}
                         <tr class="align-middle">
-                        <th scope="row">{{ categorias.id }}</th>
+                        <th scope="row">{{ categoria.id }}</th>
                         
-                        <td>{{ categorias.categoria }}</td>
+                        <td>{{ categoria.categoria }}</td>
                     
                         {% endfor %}
                     </tbody>
