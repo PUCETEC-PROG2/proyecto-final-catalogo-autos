@@ -1,159 +1,201 @@
-
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, redirect, render
-from django.template import loader
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import LoginView
 from .forms import *
 from .models import *
-from django.contrib.auth.views import LoginView
-from django.contrib.auth.decorators import login_required
+
 
 def index(request):
 
-    template = loader.get_template('index.html')
-    return HttpResponse(template.render({'index': index}, request))
+    return render(request, 'index.html')
+
 
 def producto(request):
-    producto = Producto.objects.order_by('categoria')
-    context = {
-        'producto' : producto
-    }
+
+    productos = Producto.objects.order_by('categoria')
+
+    context = {'productos': productos}
+
     return render(request, 'producto.html', context)
 
-def compra(request):
-    compra = Compra.objects.order_by('fecha_compra')
-     
-    context = {
-        'compra' : compra
-    }
-    return render(request, 'compra.html', context)
 
+@login_required
 
-def cliente (request):
-    cliente = Cliente.objects.all()
-    context = {
-        'cliente' : cliente 
-    }
-    return render(request,'cliente.html', context )
-
-def categoria (request):
-    categoria = Categoria.objects.all()
-    context = {
-        'categoria' : categoria 
-    }
-    return render(request,'categoria.html', context )
-
-
-
-
-def add_categoria(request):
-    if request.method=='POST':
-        form= CategoriaForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('catalogo:categoria')
-        
-    else:   
-        form = CategoriaForm()
-        
-    return render(request,"categoria_form.html",{'form': form }) 
-
-
-#@login_required    
 def add_producto(request):
-    if request.method=='POST':
-        form= ProductoForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('catalogo:producto')
-        
-    else:   
-        form = ProductoForm()
-        
-    return render(request,"producto_form.html",{'form': form }) 
 
-def edit_producto(request, id):
-    producto = get_object_or_404(Producto, pk = id)
     if request.method == 'POST':
-        form = ProductoForm(request.POST, request.FILES, instance=producto)
+
+        form = ProductoForm(request.POST)
+
         if form.is_valid():
+
             form.save()
+
             return redirect('catalogo:producto')
+
     else:
-        form = ProductoForm(instance=producto)
-    
+
+        form = ProductoForm()
+
     return render(request, 'producto_form.html', {'form': form})
 
-def delete_producto(required, id):
-    producto = get_object_or_404(Producto, pk = id)
+
+@login_required
+
+def edit_producto(request, id):
+
+    producto = get_object_or_404(Producto, pk=id)
+
+    if request.method == 'POST':
+
+        form = ProductoForm(request.POST, instance=producto)
+
+        if form.is_valid():
+
+            form.save()
+
+            return redirect('catalogo:producto')
+
+    else:
+
+        form = ProductoForm(instance=producto)
+
+    return render(request, 'producto_form.html', {'form': form})
+
+
+@login_required
+
+def delete_producto(request, id):
+
+    producto = get_object_or_404(Producto, pk=id)
+
     producto.delete()
+
     return redirect('catalogo:producto')
 
 
+def compra(request):
 
-#@login_required   
+    compras = Compra.objects.order_by('fecha_compra')
+
+    context = {'compras': compras}
+
+    return render(request, 'compra.html', context)
+
+
+@login_required
+
+@login_required
 def add_compra(request):
     if request.method == 'POST':
         form = CompraForm(request.POST)
         if form.is_valid():
-            compra = form.save()  # Guarda la compra
-
-            selected_productos = request.POST.getlist('producto')
-            for producto_id in selected_productos:
-                try:
-                    producto = Producto.objects.get(id=producto_id)  # Obtiene el producto
-                    LineaCompra.objects.create(compra=compra, producto=producto)  # Crea la Línea de Compra
-                except Producto.DoesNotExist:
-                    # Manejo de error en caso de que el producto no exista
-                    # Puedes registrar un mensaje de error o simplemente continuar
-                    pass
-
-            return render(request, 'compra.html') # Redirige a una vista de éxito
-
+            compra = form.save(commit=False)  # No guardamos la compra todavía
+            productos = request.POST.getlist('productos')  # Obtener la lista de productos seleccionados
+            for producto_id in productos:
+                producto = Producto.objects.get(id=producto_id)
+                LineaCompra.objects.create(compra=compra, producto=producto)
+            compra.save()  # Ahora sí guardamos la compra
+            return redirect('catalogo:compra')
     else:
-        form = CompraForm()  # Si no es POST, crea un nuevo formulario
+        form = CompraForm()
+    return render(request, 'compra_form.html', {'form': form})
 
-    return render(request, 'compra_form.html', {'form': form})  # Renderiza el formulario
+def cliente(request):
+
+    clientes = Cliente.objects.all()
+
+    context = {'clientes': clientes}
+
+    return render(request, 'cliente.html', context)
 
 
-
-
-
-
-
+@login_required
 
 def add_cliente(request):
-    if request.method=='POST':
-        form= ClienteForm(request.POST ,request.FILES) 
-        if form.is_valid():
-            form.save()
-            return redirect('catalogo:cliente')
-        
-    else:   
-        form = ClienteForm()
-        
-    return render(request,"cliente_form.html",{'form': form }) 
 
-def edit_cliente(request, id):
-    cliente = get_object_or_404(Cliente, pk = id)
     if request.method == 'POST':
-        form = ClienteForm(request.POST, request.FILES, instance=cliente)
+
+        form = ClienteForm(request.POST)
+
         if form.is_valid():
+
             form.save()
+
             return redirect('catalogo:cliente')
+
     else:
-        form = ClienteForm(instance=cliente)
-    
+
+        form = ClienteForm()
+
     return render(request, 'cliente_form.html', {'form': form})
 
-def delete_cliente(required, id):
-    cliente = get_object_or_404(Cliente, pk = id)
+
+@login_required
+
+def edit_cliente(request, id):
+
+    cliente = get_object_or_404(Cliente, pk=id)
+
+    if request.method == 'POST':
+
+        form = ClienteForm(request.POST, instance=cliente)
+
+        if form.is_valid():
+
+            form.save()
+
+            return redirect('catalogo:cliente')
+
+    else:
+
+        form = ClienteForm(instance=cliente)
+
+    return render(request, 'cliente_form.html', {'form': form})
+
+
+@login_required
+
+def delete_cliente(request, id):
+
+    cliente = get_object_or_404(Cliente, pk=id)
+
     cliente.delete()
+
     return redirect('catalogo:cliente')
 
 
+def categoria(request):
+
+    categorias = Categoria.objects.all()
+
+    context = {'categorias': categorias}
+
+    return render(request, 'categoria.html', context)
+
+
+@login_required
+
+def add_categoria(request):
+
+    if request.method == 'POST':
+
+        form = CategoriaForm(request.POST)
+
+        if form.is_valid():
+
+            form.save()
+
+            return redirect('catalogo:categoria')
+
+    else:
+
+        form = CategoriaForm()
+
+    return render(request, 'categoria_form.html', {'form': form})
 
 
 class CustomLoginView(LoginView):
-   template_name="login.html"
+    template_name="login.html"
        
-

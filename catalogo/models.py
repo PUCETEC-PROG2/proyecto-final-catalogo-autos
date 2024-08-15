@@ -1,4 +1,6 @@
 from django.db import models
+from django.forms import model_to_dict
+
 class Cliente(models.Model):
     nombre = models.CharField(max_length=60, null=False)
     apellido = models.CharField(max_length=150, null=False)
@@ -40,19 +42,32 @@ class Producto(models.Model):
     placa = models.CharField(max_length=20, null=False, unique=True)
     categoria = models.ForeignKey(Categoria, on_delete=models.RESTRICT)
 
-    def __str__(self) -> str:
+    class Meta:
+        verbose_name='producto'
+        verbose_name_plural = 'productos'
+        order_with_respect_to = 'año'
+    
+    def __str__(self):
         return self.modelo_producto
+    
+    def toJSON(self):
+        item = model_to_dict(self, exclude=['año'])
+        return item
 
 
 class Compra(models.Model):
-    ciudad = models.CharField(max_length=50, null=False)
-    fecha_compra = models.DateField(null=False)
-    total = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, null=False)
+
     cliente = models.ForeignKey(Cliente, on_delete=models.RESTRICT)
     productos = models.ManyToManyField(Producto, through='LineaCompra')
+    ciudad = models.CharField(max_length=50, null=False)
+    fecha_compra = models.DateField(null=False)
+    subtotal = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, null=False)
+    total = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, null=False)
+    
+   
 
     def calculate_total(self):
-        total = sum(item.product.price for item in self.compraitem_set.all())
+        total = sum(item.Producto.precio for item in self.compraSUBTOTAL.all())
         self.total = total
         self.save()
 
