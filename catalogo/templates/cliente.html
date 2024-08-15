@@ -1,0 +1,70 @@
+{% extends "base.html" %} 
+{% block title %}Clientes{% endblock title %} 
+{% block content %}
+
+{% if user.is_authenticated %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  
+    <a class="nav-link" href="{% url 'catalogo:add_cliente' %}">Agregar Cliente</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</nav>                        
+{% endif %}
+
+
+
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body ">
+                <div class="table-responsive">
+                    <table class="table table-bordered align-middle">
+                    <thead class="table-dark text-center">
+                        <tr class="align-middle">
+                        <th scope="col">ID</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellidos</th>                        
+                        <th scope="col">Cedula</th>
+                        <th scope="col">Telefono</th>
+                        <th scope="col">Correo</th>
+                        <th scope="col">Editar</th>
+                        <th scope="col">Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-center align-middle">
+                        {% for clientes in cliente %}
+                        <tr class="align-middle">
+                        <th scope="row">{{ clientes.id }}</th>
+                        <td>{{ clientes.nombre }}</td>
+                        <td>{{ clientes.apellido }}</td>
+                        <td>{{ clientes.cedula }}</td>
+                        <td>{{ clientes.telefono }}</td>
+                        <td>{{ clientes.correo }}</td>
+                        {% if user.is_authenticated %}
+                        <td>
+                            <a href="edit_cliente/{{ clientes.id }}" class="btn btn-sm btn-warning" id="btn_edit_cliente">
+                            <i class="fa-solid fa-pencil"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="delete_cliente/{{ clientes.id }}" class="btn btn-sm btn-danger" onclick="return confirmarEliminacion()">
+                            <i class="fa-solid fa-trash"></i>
+                            </a>
+                        </td>
+                        {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function confirmarEliminacion() {
+            return confirm('¿Estás seguro de que deseas eliminar este cliente?');
+        }
+    </script>
+{% endblock content %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}CATALOGO{% endblock title %}
+
+{% block content %}
+    
+    <form method="post" enctype="multipart/form-data;" class="text-white">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit" class="btn btn-success">Guardar</button>
+    </form>
+
+{% endblock content %}
+
+
+
+

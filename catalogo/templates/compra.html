@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Compras{% endblock title %}
+
+{% block content %}
+
+
+{% if user.is_authenticated %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  
+    <a class="nav-link" href="{% url 'catalogo:add_compra' %}">Agregar Compra</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</nav>                        
+{% endif %}
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body ">
+                <div class="table-responsive">
+                    <table class="table table-bordered align-middle">
+                    <thead class="table-dark text-center">
+                        <tr class="align-middle">
+                            <th scope="col">ID</th>
+                            <th scope="col">Ciudad</th>
+                            <th scope="col">Fecha de Compra</th>
+                            <th scope="col">Precio Total</th>                            
+                            <th scope="col">Cliente</th>
+                            <th scope="col">Ver</th>
+                          
+                            
+                        </tr>
+                    </thead>
+                    <tbody class="text-center align-middle">
+                    {% for compras in compra %}
+                        <tr class="align-middle">
+                        <th scope="row">{{ compras.id }}</th>
+                        <td>{{ compras.ciudad }}</td>
+                        <td>{{ compras.fecha_compra }}</td>
+                        <td>{{ compras.total }}</td>                        
+                        <td>{{ compras.cliente }}</td> 
+                        <td>
+                            
+                            <a href="compra/{{ compra.id }}" class="btn btn-info">ver</a>
+                            
+                       </td>             
+                        </tr>
+                        
+                    {% endfor %}
+                    </tbody>
+                    </table>                    
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+{% endblock content %}
