@@ -92,15 +92,23 @@ def add_compra(request):
         form = CompraForm(request.POST)
         if form.is_valid():
             compra = form.save(commit=False)  # No guardamos la compra todavía
-            productos = request.POST.getlist('productos')  # Obtener la lista de productos seleccionados
-            for producto_id in productos:
-                producto = Producto.objects.get(id=producto_id)
-                LineaCompra.objects.create(compra=compra, producto=producto)
+            # productos = request.POST.getlist('productos')  # Obtener la lista de productos seleccionados
+            # for producto_id in productos:
+            #     producto = Producto.objects.get(id=producto_id)
+            #     # LineaCompra.objects.create(compra=compra, producto=producto)
             compra.save()  # Ahora sí guardamos la compra
+            form.save_m2m()
+            compra.total = calcular_total( compra.productos.all())
+            compra.save()
             return redirect('catalogo:compra')
     else:
         form = CompraForm()
     return render(request, 'compra_form.html', {'form': form})
+def calcular_total (productos):
+    total=0
+    for producto in productos :
+        total += producto.precio
+    return total
 
 def cliente(request):
 

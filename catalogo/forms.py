@@ -42,19 +42,15 @@ class ProductoForm(forms.ModelForm):
 class CompraForm(forms.ModelForm):
     class Meta:
         model = Compra
-        fields = ['cliente', 'ciudad', 'fecha_compra', 'subtotal', 'total']
+        fields = ['cliente', 'ciudad', 'fecha_compra','productos']
         widgets = {
             'cliente': forms.Select(attrs={'class': 'form-control'}),
-            'ciudad': forms.TextInput(attrs={'class': 'form-control'}),
+            'productos' : forms.SelectMultiple(attrs={'class': 'form-control'}),
+            'ciudad': forms.TextInput(attrs={'class': 'form-control'}),            
             'fecha_compra': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
-            'subtotal': forms.NumberInput(attrs={'class': 'form-control'}),
-            'total': forms.NumberInput(attrs={'class': 'form-control'}),
+          
         }
-        productos = forms.ModelMultipleChoiceField(
-            queryset=Producto.objects.all(),
-            widget=forms.CheckboxSelectMultiple,
-            required=False
-        )
+        
 
 class LineaCompraForm(forms.ModelForm):
     class Meta:

@@ -27,7 +27,7 @@
                             <th scope="col">Fecha de Compra</th>
                             <th scope="col">Precio Total</th>                            
                             
-                            <th scope="col">Ver</th>
+                            
                         </tr>
                     </thead>
                     <tbody class="text-center align-middle">
@@ -39,9 +39,6 @@
                             <td>{{ compra.fecha_compra }}</td>
                             <td>{{ compra.total }}</td>
                             
-                            <td>
-                                <a href="compra/{{ compra.id }}" class="btn btn-info">ver</a>
-                            </td>
                         </tr>
                         {% endfor %}
                     </tbody>
