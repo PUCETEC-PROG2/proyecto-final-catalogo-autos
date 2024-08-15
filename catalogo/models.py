@@ -42,17 +42,11 @@ class Producto(models.Model):
     placa = models.CharField(max_length=20, null=False, unique=True)
     categoria = models.ForeignKey(Categoria, on_delete=models.RESTRICT)
 
-    class Meta:
-        verbose_name='producto'
-        verbose_name_plural = 'productos'
-        order_with_respect_to = 'año'
+   
     
     def __str__(self):
         return self.modelo_producto
     
-    def toJSON(self):
-        item = model_to_dict(self, exclude=['año'])
-        return item
 
 
 class Compra(models.Model):
@@ -65,11 +59,6 @@ class Compra(models.Model):
     total = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, null=False)
     
    
-
-    def calculate_total(self):
-        total = sum(item.Producto.precio for item in self.compraSUBTOTAL.all())
-        self.total = total
-        self.save()
 
     def __str__(self) -> str:
         return f'Compra de {self.cliente} - {self.fecha_compra}'

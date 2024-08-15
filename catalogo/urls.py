@@ -25,6 +25,8 @@ urlpatterns = [
 
     path("categoria/", views.categoria, name="categoria"),
     path('add_categoria/', views.add_categoria, name='add_categoria'),
+    path("categoria/delete_categoria/<int:id>/", views.delete_categoria, name="delete_categoria"),
+
 
     path("login/", views.CustomLoginView.as_view(), name="login"),
     path('logout/', LogoutView.as_view(), name='logout'),

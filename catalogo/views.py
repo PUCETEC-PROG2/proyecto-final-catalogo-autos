@@ -174,6 +174,16 @@ def categoria(request):
 
     return render(request, 'categoria.html', context)
 
+@login_required
+
+def delete_categoria(request, id):
+
+    categoria = get_object_or_404(Categoria, pk=id)
+
+    categoria.delete()
+
+    return redirect('catalogo:categoria')
+
 
 @login_required
 
